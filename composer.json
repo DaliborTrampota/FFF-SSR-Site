@@ -1,0 +1,11 @@
+{
+  "name": "jara/tabor",
+  "description": "appka",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [],
+  "require": {
+    "bcosca/fatfree": ">=3.8.0",
+    "ikkez/f3-cortex": ">=v1.7.5"
+  }
+}

@@ -1,0 +1,45 @@
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<table>
+    <tr>
+        <th>Jméno</th>
+        <th>Příjmení</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Termín</th>
+    </tr>
+    <repeat group="{{ @prihlasky }}" value="{{ @p }}">
+        <repeat group="{{ @p.kids }}" value="{{ @k }}">
+            <tr>
+                <td>{{ @k.jmeno }}</td>
+                <td>{{ @k.prijmeni }}</td>
+                <td>{{ @p.rodic.tel }}</td>
+                <td>{{ @p.rodic.email }}</td>
+                <td>{{ @p.termin }}</td>
+            </tr>
+        </repeat>
+    </repeat>
+</table>

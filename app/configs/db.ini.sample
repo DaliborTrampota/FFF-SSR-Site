@@ -1,0 +1,5 @@
+;vypln spravne udaje do DB a umaz koncovku .sample
+[globals]
+db[dsn]="mysql:host=localhost;dbname="
+db[username]=""
+db[password]=""

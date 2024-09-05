@@ -1,0 +1,22 @@
+
+<header class="flex gap-5 bg-red-500 p-2 justify-between text-4xl [&>div]:cursor-pointer">
+    <div onclick="window.location.href='/'">
+        Tábor Děčín
+    </div>
+    <div onclick="window.location.href='/admin'">Administrace</div>
+</header>
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<div class="container p-3 mt-5 d-flex mx-auto w-100 flex-column">
+
+<check if="{{isset(@content)}}">
+    <true>
+        <include href="{{@content}}"/>
+    </true>
+    <false>
+        <h1>Žádná data k zobrazení.</h1>
+    </false>
+</check>
+
+</div> <!--close container -->

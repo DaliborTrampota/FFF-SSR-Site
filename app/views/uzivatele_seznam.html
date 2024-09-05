@@ -1,0 +1,87 @@
+</check>
+<check if="{{ isset(@SESSION.user) }}">
+    <true>
+        <check if="{{@SESSION.user['roleId']}} >=2 && {{@SESSION.user['roleId']}} <= 6">
+            <true>
+                Bez oprávnění!
+            </true>
+            <false>
+                <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+                <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+                <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+                <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+                <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+                <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+                <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+                <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+                <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+                <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+                <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+                <h4>Výpis uživatelů</h4>
+                <br>
+                <div class="tabulka">
+                    <table id="table_id" class="display cell-border" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Email</th>
+                            <th>Jméno</th>
+                            <th>Příjmení</th>
+                            <th>Popis</th>
+                            <th>Obrázek</th>
+                            <th>Provider</th>
+                            <th>Role</th>
+                            <th>Skupina</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <repeat group="{{ @uzivatele }}" value="{{ @uzivatele}}">
+                            <tr data-id="{{@uzivatele.id}}">
+                                <td>{{ @uzivatele.id }}</td>
+                                <td>{{ @uzivatele.email }}</td>
+                                <td>{{ @uzivatele.jmeno }}</td>
+                                <td>{{ @uzivatele.prijmeni }}</td>
+                                <td>{{ @uzivatele.popis }}</td>
+                                <td>{{ @uzivatele.image }}</td>
+                                <td>{{ @uzivatele.provider }}</td>
+                                <td>{{ @uzivatele.role.id }}</td>
+                                <td>{{ @uzivatele.skupina }}</td>
+                                </td>
+                                <check if="{{ @SESSION.user['role'] }}>=3">
+                                    <td>
+                                        <i class="fa fa-edit fa-2x alert-danger upravit" title="Upravit."></i>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-remove fa-2x ne smazat" data-name="{{@v.jmeno}}" title="Smazat."></i>
+                                    </td>
+                                </check>
+                            </tr>
+                        </repeat>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <script>
+                    var text = $('#x').text();
+                    $(document).ready(function() {
+                        $('#table_id').DataTable( {
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'excel',
+                                    title: text
+                                },
+                            ],
+                            select: {
+                                style: 'multi'
+                            },
+                        } );
+                    } );
+                </script>
+            </false>
+        </check>
+    </true>
+</check>

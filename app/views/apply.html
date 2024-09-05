@@ -1,0 +1,59 @@
+<style>
+    input, select {
+        background-color: blanchedalmond;
+        padding: 0.5em 1em;
+        margin: 0.5em 0;
+    }
+</style>
+
+<script>
+    function updateKids(val) {
+        fetch('/kids/' + val, { method: 'POST' }).then(r => r.text()).then(html => {
+            document.getElementsByTagName('body')[0].innerHTML = html
+        })
+    }
+</script>
+
+<form action="/prihlaska" method="post">
+    Rodič
+    <input type="text" name="jmeno" required placeholder="Jméno" value="{{ @parent.jmeno}}" disabled>
+    <input type="text" name="prijmeni" required placeholder="Příjmení" value="{{ @parent.prijmeni}}" disabled>
+    <input type="email" name="email" required placeholder="Email" value="{{ @parent.email}}">
+    <input type="tel" name="telefon" required placeholder="Telefon" value="{{ @parent.tel}}">
+
+    <label for="kids">Počet dětí</label>
+    <input type="number" name="pocet_deti" required id="kids" value="{{ @kids }}" min="1" max="5" onchange="updateKids(this.value)">
+    <br>
+    <label for="term">Termín</label>
+    <select name="termin" id="term" required>
+        <option value="1.">10. - 20.8.</option>
+        <option value="2.">21.8. - 10.9.</option>
+        <option value="3.">11.9. - 30.9.</option>
+        <option value="4.">1.10. - 20.10.</option>
+    </select>
+    <br>
+    <br>
+
+    <loop from="{{ @i = 0 }}" to="{{ @i < @kids }}" step="{{ @i++ }}">
+        Dítě {{ @i + 1 }}
+        <input type="text" name="jmeno[]" required placeholder="Jméno">
+        <input type="text" name="prijmeni[]" required placeholder="Příjmení">
+        <br>
+        <label for="birth">Datum narození</label>
+        <input type="date" name="datum_narozeni[]" id="birth" required>
+        <br>
+        <label for="size">Velikost trička</label>
+        <select name="tshirt_size[]" id="size" required>
+            <option>XS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+            <option>XXL</option>
+        </select>
+        <br>
+        <br>
+    </loop>
+
+    <button type="submit" class="bg-blue-500 px-3 py-1 font-bold text-xl my-2">Odeslat</button>
+</form>
